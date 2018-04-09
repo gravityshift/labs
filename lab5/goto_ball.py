@@ -8,9 +8,9 @@ import numpy as np
 
 sys.path.insert(0, '../lab4')
 import find_ball
-
+import time
 import cozmo
-
+from cozmo.util import degrees
 try:
     from PIL import ImageDraw, ImageFont
 except ImportError:
@@ -57,8 +57,10 @@ async def run(robot: cozmo.robot.Robot):
     robot.world.image_annotator.add_annotator('battery', BatteryAnnotator)
     robot.world.image_annotator.add_annotator('ball', BallAnnotator)
 
-
     try:
+        #Reset the lift
+        robot.move_lift(-5)
+        time.sleep(1)
 
         while True:
             #get camera image
@@ -66,6 +68,7 @@ async def run(robot: cozmo.robot.Robot):
 
             #convert camera image to opencv format
             opencv_image = cv2.cvtColor(np.asarray(event.image), cv2.COLOR_RGB2GRAY)
+            w = opencv_image.shape[1]
 
             #find the ball
             ball = find_ball.find_ball(opencv_image)
@@ -73,14 +76,21 @@ async def run(robot: cozmo.robot.Robot):
             #set annotator ball
             BallAnnotator.ball = ball
 
-            ## TODO: ENTER YOUR SOLUTION HERE
-
+            if ball is None: #If we don't see a ball, turn a little bit and try again
+                await robot.turn_in_place(degrees(10)).wait_for_completed()
+            elif (ball[2]<120): #If the ball isn't that big yet, keep moving towards it
+                offset = 0.1 * (w//2-ball[0])
+                await robot.drive_wheels(15-offset, 15+offset)
+            else: #"Hit"the ball
+                robot.move_lift(5)
+                time.sleep(1)
 
     except KeyboardInterrupt:
         print("")
         print("Exit requested by user")
     except cozmo.RobotBusy as e:
         print(e)
+
 
 
 
