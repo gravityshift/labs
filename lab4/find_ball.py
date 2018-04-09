@@ -24,9 +24,12 @@ def find_ball(opencv_image, debug=False):
 	"""
 
 	ball = None
-	
-	## TODO: INSERT YOUR SOLUTION HERE
-	
+
+	circles = cv2.HoughCircles(opencv_image,cv2.HOUGH_GRADIENT,1,20,param1=100,param2=25,minRadius=10,maxRadius=0)
+	if (circles is not None):
+		if(circles[0] is not None):
+			if(circles[0][0] is not None):
+				ball = circles[0][0]
 	return ball
 
 
@@ -69,7 +72,7 @@ def display_circles(opencv_image, circles, best=None):
 	
 	#display the image
 	pil_image = Image.fromarray(circle_image)
-	pil_image.show()    
-	  
+	pil_image.show()
+
 if __name__ == "__main__":
 	pass
