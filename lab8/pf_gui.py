@@ -21,6 +21,8 @@ Use_GUI = True
 """ Robot Motion parameters
 	Feel free to change these param for your debug
 """
+Ticks_per_second = 60;
+
 # whether move in a circle: There are two robot motion pattern implemented:
 # 1. Robot move forward, if hit an obstacle, robot bounces to a random direction
 # 2. Robot move as a circle (This is the motion autograder uses)
@@ -28,11 +30,11 @@ Use_GUI = True
 Move_circular = False
 
 # robot moving speed (grid per move)
-Robot_speed = 0.5
+Robot_speed = 0.1
 # initial robot transformation (X, Y, yaw in deg)
 Robot_init_pose = (6, 3, 0)
 # Angle (in degree) to turn per run in circle motion mode
-Dh_circular = 10
+Dh_circular = 2
 
 
 
@@ -131,6 +133,7 @@ class ParticleFilterThread(threading.Thread):
             self.gui.show_mean(estimated[0], estimated[1], estimated[2], estimated[3])
             self.gui.show_robot(self.filter.robbie)
             self.gui.updated.set()
+            time.sleep(1/Ticks_per_second)
 
 
 if __name__ == "__main__":
