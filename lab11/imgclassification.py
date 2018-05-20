@@ -8,6 +8,7 @@ import numpy as np
 import re
 from sklearn import svm, metrics
 from skimage import io, feature, filters, exposure, color
+from sklearn.svm import LinearSVC
 
 class ImageClassifier:
     
@@ -37,33 +38,30 @@ class ImageClassifier:
 
         # extract feature vector from image data
 
-        ########################
-        ######## YOUR CODE HERE
-        ########################
-        
-        # Please do not modify the return type below
+        feature_data = []
+        for original_img in data:
+            gray_img = color.rgb2gray(original_img)
+            blurred_gray_img = filters.gaussian(gray_img, sigma=1)
+            hog_features = feature.hog(blurred_gray_img, orientations=8, pixels_per_cell=(16, 16), cells_per_block=(1, 1))
+            feature_data.append(hog_features)
+
         return(feature_data)
 
     def train_classifier(self, train_data, train_labels):
         # Please do not modify the header above
         
         # train model and save the trained model to self.classifier
-        
-        ########################
-        ######## YOUR CODE HERE
-        ########################
+        self.classifier = LinearSVC()
+        self.classifier.fit(train_data, train_labels)
 
     def predict_labels(self, data):
         # Please do not modify the header
 
         # predict labels of test data using trained model in self.classifier
         # the code below expects output to be stored in predicted_labels
-        
-        ########################
-        ######## YOUR CODE HERE
-        ########################
-        
-        # Please do not modify the return type below
+
+        predicted_labels = self.classifier.predict(data)
+
         return predicted_labels
 
       
