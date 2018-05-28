@@ -25,39 +25,34 @@ def question2():
     return answerDiscount, answerNoise
 
 def question3a():
-    answerDiscount = None
-    answerNoise = None
-    answerLivingReward = None
+    answerDiscount = 0.5 # Low, prefer the closer terminal state
+    answerNoise = 0.05 # Low, the cliff can be risked
+    answerLivingReward = -0.95 # Negative, living is expensive
     return answerDiscount, answerNoise, answerLivingReward
-    # If not possible, return 'NOT POSSIBLE'
 
 def question3b():
-    answerDiscount = None
-    answerNoise = None
-    answerLivingReward = None
+    answerDiscount = 0.5 # Low, prefer the closer terminal state
+    answerNoise = 0.3 # High, avoid the cliff
+    answerLivingReward = -0.95 # Negative, living is expensive
     return answerDiscount, answerNoise, answerLivingReward
-    # If not possible, return 'NOT POSSIBLE'
 
 def question3c():
-    answerDiscount = None
-    answerNoise = None
-    answerLivingReward = None
+    answerDiscount = 0.9 # High, allow the farther terminal state
+    answerNoise = 0.05 # Low, the cliff can be risked
+    answerLivingReward = 0.05 # Low, terminating is more valuable than living
     return answerDiscount, answerNoise, answerLivingReward
-    # If not possible, return 'NOT POSSIBLE'
 
 def question3d():
-    answerDiscount = None
-    answerNoise = None
-    answerLivingReward = None
+    answerDiscount = 0.95 # High, allow the farther terminal state
+    answerNoise = 0.5 # High, avoid the cliff
+    answerLivingReward = 0.05 # Low, terminating is more valuable than living
     return answerDiscount, answerNoise, answerLivingReward
-    # If not possible, return 'NOT POSSIBLE'
 
 def question3e():
-    answerDiscount = None
-    answerNoise = None
-    answerLivingReward = None
+    answerDiscount = 0.05 # Very low, terminal states become worthless
+    answerNoise = 0.5 # High, avoid the cliff
+    answerLivingReward = 0.95 # High, living is more valuable than terminating
     return answerDiscount, answerNoise, answerLivingReward
-    # If not possible, return 'NOT POSSIBLE'
 
 def question6():
     answerEpsilon = None
